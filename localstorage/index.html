@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+    <title>Dark Mode Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body {
+        background-color: #f0f0f2;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    }
+    div {
+        width: 600px;
+        margin: 5em auto;
+        padding: 2em;
+        background-color: #fdfdff;
+        border-radius: 0.5em;
+        box-shadow: 2px 3px 7px 2px rgba(0,0,0,0.02);
+    }
+    a:link, a:visited {
+        color: #38488f;
+        text-decoration: none;
+    }
+    @media (max-width: 700px) {
+        div {
+            margin: 0 auto;
+            width: auto;
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+      .dark-mode-undefined body {
+          background: #111;
+          color: white;
+      }
+      .dark-mode-undefined div {
+          background-color: #222;
+          color: white;
+      }
+      .dark-mode-undefined a {
+          color: yellow;
+      }
+    }
+    .dark-mode-true body {
+        background: #111;
+        color: white;
+    }
+    .dark-mode-true div {
+        background-color: #222;
+        color: white;
+    }
+    .dark-mode-true a {
+        color: yellow;
+    }
+    </style>
+    <script>
+        document.documentElement.className = 'dark-mode-' + localStorage.darkMode
+    </script>
+</head>
+
+<body>
+<div>
+    <h1>Dark Mode Test</h1>
+    <p>Using <a href="https://example.com">https://example.com</a> as a template.</p>
+    <p><button type="button">Toggle dark mode</button></p>
+</div>
+
+<script>
+document.querySelector('button').addEventListener('click', evt => {
+  evt.preventDefault()
+  const userSetting = localStorage.darkMode
+  const browserSetting = matchMedia('(prefers-color-scheme: dark)').matches
+  localStorage.darkMode = !(userSetting ? userSetting === 'true' : browserSetting)
+  document.documentElement.className = 'dark-mode-' + localStorage.darkMode
+})
+</script>
+</body>
+</html>
